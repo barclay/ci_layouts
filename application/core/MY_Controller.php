@@ -17,7 +17,7 @@ class MY_Controller extends CI_Controller
     public $layout = 'default';
     
     /**
-     * undocumented variable
+     * Array that contains variables to be passed into the layout at rendertime. 
      *
      * @var array
      */
@@ -30,7 +30,6 @@ class MY_Controller extends CI_Controller
      * @param  string $var_name  The name of the variable
      * @param  mixed  $val       The value
      * @return void
-     * @author Barclay Loftus
      */
     public function setLayoutVar($var_name, $val) {
         $this->layout_vars[$var_name] = $val;
