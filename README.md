@@ -7,71 +7,81 @@ For those new to this, a layout contains presentation code that wraps around the
 
 Layout files should be placed in /applications/views/layouts/... You can specify which layout is to be used in your controller. i.e.
 
-    // in applciation/controllers/welcome.php
-    //
-    class Welcome extends MY_Controller { 
-        
-        function index() {
+```php
+// in applciation/controllers/welcome.php
+//
+class Welcome extends MY_Controller { 
+    
+    function index() {
 
-            // loads layout application/views/layouts/my_new_layout.phtml
-            //
-            $this->layout = 'my_new_layout';
-            $this->load->view('index');
-        }
+        // loads layout application/views/layouts/my_new_layout.phtml
+        //
+        $this->layout = 'my_new_layout';
+        $this->load->view('index');
     }
+}
+```
 
-When you create a layout, you need to tell it where to place the code for your views. To do so, make sure your layout includes a $yield variable
+When you create a layout, you need to tell it where to place the code for your views. To do so, make sure your layout includes a $yield variable. Also, please note that all layouts are expecting a .phtml extension (this is on purpose to try and remind developers that these should be _super_ light on php logic). 
 
 Here's an example of what a default layout might look like:
 
-    <html>
-    <head>
+```html
+<!-- in application/layouts/default.phtml -->
+<html>
     <title></title>
     <body>
         <h1>Header</h1>
         <?php echo $yield; ?>
     </body>
-    </html>
-    
+</html>
+```
+
 If you'd like to pass variables into your layout, you can via the MY_Controller's setLayoutVar() method. Any variables set here will be exposed to the layout's scope. 
 
 For example:
-
-    // in applciation/controllers/welcome.php
-    //
-    class Welcome extends MY_Controller { 
-        function index() {
-            $this->layout = 'my_new_layout';
-            $this->setLayoutVar('body_class', 'foo');
-            $this->setLayoutVar('footer', $this->load->view('footer', null, 1)); 
-            $this->load->view('index');
-        }
+```php
+// in applciation/controllers/welcome.php
+//
+class Welcome extends MY_Controller { 
+    function index() {
+        $this->layout = 'my_new_layout';
+        $this->setLayoutVar('body_class', 'foo');
+        $this->setLayoutVar('footer', $this->load->view('footer', null, 1)); 
+        $this->load->view('index');
     }
+}
+```
 
-    <!-- in application/view/layout/my_new_layout -->
-    ...
-    <body class="<?php echo $body_class; ?>">
-        <h1>Header</h1>
-        <?php echo $yield; ?>
-        <?php echo $footer; ?>
-    </body>
+```html
+<!-- in application/view/layout/my_new_layout.phtml -->
+...
+<body class="<?php echo $body_class; ?>">
+    <h1>Header</h1>
+    <?php echo $yield; ?>
+    <?php echo $footer; ?>
+</body>
+```
 
-To turn off a layout for a particular action, you can set the layout member to be null, or string literal 'none'. 
+To turn off a layout for a particular action (i.e. an AJAX request), you can set the layout member to be null, or string literal 'none'. 
 
-    // in applciation/controllers/welcome.php
-    //
-    class Welcome extends MY_Controller { 
-        function json_action() {
-            $this->layout = 'none';
-            echo json_encode(array('foo' => 'bar'));
-        }
+```php
+// in applciation/controllers/welcome.php
+//
+class Welcome extends MY_Controller { 
+    function json_action() {
+        $this->layout = 'none';
+        echo json_encode(array('foo' => 'bar'));
     }
+}
+```
 
+You can also play around with creating JSON or XML layout templates as well. This can be super useful for normalizing your async return values. 
 
 Notes
 =====
 
-When using the layouts hook, you'll no longer be able to call echo() from within a controller action. Well, you can, but there's some funny timing things, and anything you echo will appear _above_ the layout. And, really, as per MVC conventions, you should be using _views_ anyway!
+When using the layouts hook, you'll no longer be able to call echo() from within a controller action. Well, you _can_, but there's some funny timings, and anything you echo will appear _above_ the layout. And, really, as per MVC conventions, you should be using _views_ anyway!
 
 
 Installation
