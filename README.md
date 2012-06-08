@@ -8,6 +8,7 @@ For those new to this, a layout contains presentation code that wraps around the
 Layout files should be placed in /applications/views/layouts/... You can specify which layout is to be used in your controller. i.e.
 
 ```php
+<?
 // in applciation/controllers/welcome.php
 //
 class Welcome extends MY_Controller { 
@@ -41,6 +42,7 @@ If you'd like to pass variables into your layout, you can via the MY_Controller'
 
 For example:
 ```php
+<?
 // in applciation/controllers/welcome.php
 //
 class Welcome extends MY_Controller { 
@@ -66,6 +68,7 @@ class Welcome extends MY_Controller {
 To turn off a layout for a particular action (i.e. an AJAX request), you can set the layout member to be null, or string literal 'none'. 
 
 ```php
+<?
 // in applciation/controllers/welcome.php
 //
 class Welcome extends MY_Controller { 
