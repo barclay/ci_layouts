@@ -71,11 +71,20 @@ To turn off a layout for a particular action (i.e. an AJAX request), you can set
 <?
 // in applciation/controllers/welcome.php
 //
-class Welcome extends MY_Controller { 
+class Welcome extends MY_Controller {
+
     function json_action() {
+    
+        // setting the layout to none, will prevent it from rendering one
+        //
         $this->layout = 'none';
+        
+        // now we can echo our JSON payload, or whatever. 
+        //
         echo json_encode(array('foo' => 'bar'));
+        exit();
     }
+
 }
 ```
 
