@@ -1,11 +1,11 @@
 Layout Hook for CodeIgniter
 ===========================
 
-A modification for CodeIgniter 2.x to support rails or cakePHP style layouts. 
+A modification for CodeIgniter 2.x to support rails or cakePHP style layouts. It's been tested and works in 2.0.3-2.1.
 
-For those new to this, a layout contains presentation code that wraps around the current view view. Anything you want to see in all of your views should be placed in a layout.
+For those new to this, a layout contains presentation code that wraps around the current view view (think: template). Anything you want to see in all of your views should be placed in a layout.
 
-Layout files should be placed in /applications/views/layouts/... You can specify which layout is to be used in your controller. i.e.
+Layout files should be placed in ``/applications/views/layouts/...`` You can specify which layout is to be used in your controller. i.e.
 
 ```php
 <?
@@ -23,7 +23,7 @@ class Welcome extends MY_Controller {
 }
 ```
 
-When you create a layout, you need to tell it where to place the code for your views. To do so, make sure your layout includes a $yield variable. Also, please note that all layouts are expecting a .phtml extension (this is on purpose to try and remind developers that these should be _super_ light on php logic). 
+When you create a layout, you need to tell it where to place the code for your views. To do so, make sure your layout includes a ``$yield`` variable. Also, please note that all layouts are expecting a ``.phtml`` extension (this is on purpose to try and remind developers that these should be _super_ light on php logic). 
 
 Here's an example of what a default layout might look like:
 
@@ -38,7 +38,7 @@ Here's an example of what a default layout might look like:
 </html>
 ```
 
-If you'd like to pass variables into your layout, you can via the MY_Controller's setLayoutVar() method. Any variables set here will be exposed to the layout's scope. 
+If you'd like to pass variables into your layout, you can via the MY_Controller's ``setLayoutVar()`` method. Any variables set here will be exposed to the layout's scope. 
 
 For example:
 ```php
@@ -84,16 +84,16 @@ You can also play around with creating JSON or XML layout templates as well. Thi
 Notes
 =====
 
-When using the layouts hook, you'll no longer be able to call echo() from within a controller action. Well, you _can_, but there's some funny timings, and anything you echo will appear _above_ the layout. And, really, as per MVC conventions, you should be using _views_ anyway!
+When using the layouts hook, you'll no longer be able to call ``echo()`` from within a controller action. Well, you _can_, but there's some funny timings, and anything you echo will appear _above_ the layout. And, really, as per MVC conventions, you should be using _views_ anyway!
 
 
 Installation
 ============
 
-Clone the project, and add the files into your CI project. In application/config/config.php, the only change from the default config is to turn the hooks on (line 94). 
+Clone the project, and add the files into your CI project. In ``application/config/config.php``, the only change from the default config is to turn the hooks on (line 94). 
 
-And then in application/config/hooks.php you can see how we're wiring up the layouts to CI's display_override event. 
+And then in ``application/config/hooks.php`` you can see how we're wiring up the layouts to CI's ``display_override`` event. 
 
-In application/hooks/layout.php is where all the magic happens of loading and executing the layout. 
+In ``application/hooks/layout.php`` is where all the magic happens of loading and executing the layout. 
 
-For the application/core/MY_Controller, the logic is in place for setting a default layout, and handing the setLayoutVar method. 
+For the ``application/core/MY_Controller``, the logic is in place for setting a default layout, and handing the ``setLayoutVar()`` method. 
